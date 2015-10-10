@@ -6,16 +6,16 @@ Meteor.startup(function () {
 
  Push.addListener('startup', function(notification) {
 
-  if(notification.payload.pushType === 'commande'){
-    Router.go('commande', {
-     commandeId: notification.payload.commandeId
+  if(notification.payload.pushType === 'startGame'){
+    Router.go('startGame', {
+     commandeId: notification.payload.gameId
     });
   }
-  else if(notification.payload.pushType === 'offre'){
+  else if(notification.payload.pushType === 'endGame'){
     //offreDetail n'existe pas encore
     //il faudra recupere restoId pour que  le panier fonctionne session.set()
-    Router.go('restoDetail', {
-     _id: notification.payload.restoId
+    Router.go('endGame', {
+     _id: notification.payload.gameId
     });
   }
    else if(notification.payload.pushType === 'interest'){
@@ -26,13 +26,13 @@ Meteor.startup(function () {
 Push.addListener('message', function(notification) {
 		// Called on every message
 		function alertDismissed() {
- if(notification.payload.pushType === 'commande'){
-    Router.go('commande', {
-      commandeId: notification.payload.commandeId
+ if(notification.payload.pushType === 'startGame'){
+    Router.go('startGame', {
+      commandeId: notification.payload.gameId
     });
-  }else if(notification.payload.pushType === 'offre'){
-    Router.go('offreDetail', {
-     _id: notification.payload.offreId
+  }else if(notification.payload.pushType === 'endGame'){
+    Router.go('endGame', {
+     _id: notification.payload.gameId
     });
   }
 		}

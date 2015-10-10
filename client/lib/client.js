@@ -2,17 +2,21 @@
   return [false];
 });*/
 
-getUserLanguage = function () {
-  // Put here the logic for determining the user language
-  return "fr";
-};
+
 
 Meteor.startup(function () {
 
+  language = window.navigator.userLanguage || window.navigator.language;
+   //console.log(language);
+   if (language.indexOf('-') !== -1)
+      language = language.split('-')[0];
+
+  if (language.indexOf('_') !== -1)
+      language = language.split('_')[0];
 
     Session.set("showLoadingIndicator", true);
 
-    TAPi18n.setLanguage(getUserLanguage())
+    TAPi18n.setLanguage(language)
       .done(function () {
         Session.set("showLoadingIndicator", false);
       })
