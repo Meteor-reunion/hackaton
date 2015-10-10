@@ -27,8 +27,7 @@ Meteor.startup(function () {
 
 
       if (Meteor.userId()) {
-
-
+;
 
     }
 
@@ -46,4 +45,7 @@ Tracker.autorun(function() {
     if (Reload.isWaitingForResume()) {
         alert("Fermer et ré-ouvrir cette application pour obtenir la nouvelle version!");
     }
+});
+Tracker.autorun(function() {
+Meteor.subscribe('game');
 });
