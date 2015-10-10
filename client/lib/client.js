@@ -15,6 +15,7 @@ Meteor.startup(function () {
       language = language.split('_')[0];
 
     Session.set("showLoadingIndicator", true);
+    Session.setDefault("currentGame", false)
 
     TAPi18n.setLanguage(language)
       .done(function () {

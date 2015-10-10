@@ -2,6 +2,10 @@ function userName() {
     return Meteor.user().username || Meteor.user().profile.name;
 }
 
+function catOrPoop() {
+  return Math.random() < 0.5 ? 0 : 1
+}
+
 Meteor.methods({
   joinGame: function() {
     if (!this.userId) {
@@ -9,22 +13,25 @@ Meteor.methods({
     }
 
     game = Games.find({ startedAt: null }).fetch()[0]
-    console.log(game)
+    var gameId
     if (game) {
       Games.update({ _id: game._id }, {
         $push: { players: { userid: this.userId, score: 0 } },
-        startedAt: new Date()
+        $set: { startedAt: new Date() }
       })
+      gameId = game._id
     } else {
-      Games.insert({
-        bullets: [1, 1, 1, 0,
-                  1, 0, 1, 1,
-                  1, 1, 0, 0,
-                  1, 1, 0, 1],
-        players: [ { userId: user._id,
+      var bullets = []
+      for (var i = 0; i < 16; i++) {
+        bullets.push(catOrPoop())
+      }
+      gameId = Games.insert({
+        bullets: bullets,
+        players: [ { userId: this.userId,
                      score: 0 } ]
       })
     }
+    return gameId
   },
 
     deleteResto: function(restoId) {
