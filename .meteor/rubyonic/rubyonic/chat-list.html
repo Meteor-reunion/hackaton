@@ -1,0 +1,77 @@
+<template name="chatlistRuby">
+<!-- Chat Screen - Refer to _chat.scss -->
+{{#ionView class="rubyonic-pane chat-screen"}}
+  <!-- Custom Header:
+  We did this so we could have a custom bar without 
+  altering ionic's state/history management.
+  Use with 'hide-nav-bar="true"' attribute at line 1: -->
+  <div class="bar bar-ruby-header bar-transparent">
+    <button class="button ruby-button-clear icon ion-navicon brand-base-text-color" menu-toggle="left">
+      <span class="new-notification-bubble"></span>
+    </button>
+    <h1 class="title brand-base-text-color">Chat/Friend List</h1>
+    <button class="button ruby-button-clear icon ion-android-notifications brand-base-text-color" menu-toggle="right"></button>
+  </div>
+  <!-- End Custom navbar -->
+  {{#ionContent class="has-header"}}
+
+  <div class="padding ruby">
+  	
+  	<div class="list list-inset form-rb">
+    <label class="item item-input ruby-search-box">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="Hello? Is it me you're looking for?">
+    </label>
+  </div>
+
+	<div class="list chat-list">
+
+          <a class="item item-avatar online">
+            <img src="img/demo/profile-image.jpg" class="notification-thumb">
+            <h3 class="notification-title">Tracy Melfin</h3>
+            <p class="notification-summary">“nom nom nom......nom!”</p>
+          </a>
+
+          <a class="item item-avatar busy" href="#">
+            <img src="img/demo/profile-image-2.jpg" class="notification-thumb">
+            <h3 class="notification-title">Alex Scrone</h3>
+            <p class="notification-summary">Feedback.mp4 | 4:44 mins</p>
+          </a>
+
+          <a class="item item-avatar idle" href="#">
+            <img src="img/demo/profile-image-3.jpg" class="notification-thumb">
+            <h3 class="notification-title">Dubby Malfinger</h3>
+            <p class="notification-summary">“I will find you....”</p>
+          </a>
+
+          <a class="item item-avatar" href="#">
+            <img src="img/demo/profile-image-4.jpg" class="notification-thumb">
+            <h3 class="notification-title">Trixy Martin</h3>
+            <p class="notification-summary">the-truth.mp3 | 2:33 mins</p>
+          </a>
+
+          <a class="item item-avatar" href="#">
+            <img src="img/demo/profile-image-5.jpg" class="notification-thumb">
+            <h3 class="notification-title">Sagatarious the Unrepentant</h3>
+            <p class="notification-summary">Back off, man. I'm a scientist.</p>
+          </a>
+
+      </div>
+
+  </div>
+
+
+
+  {{/ionContent}}
+
+{{#ionTabs class="tabs-icon-bottom chat-footer-controls"}}
+  {{> ionTab title="" path="list" iconOff="ionic" iconOn="ionic"}}
+    {{> ionTab title="" path="list" iconOff="locked" iconOn="locked"}}
+    {{> ionTab path="list" badgeNumber="0" badgeColor="balanced" iconOff="leaf" iconOn="leaf"}}
+  {{> ionTab title="" path="list" iconOff="waterdrop" iconOn="waterdrop"}}
+{{/ionTabs}}
+
+
+
+{{/ionView}}
+</template>

@@ -1,0 +1,25 @@
+<template name="setting">
+{{#contentFor "headerButtonLeft"}}
+{{/contentFor}}
+
+{{#contentFor "headerButtonRight"}}
+{{/contentFor}}
+
+{{#contentFor "headerTitle"}}
+   <h1 class="title">Réglages</h1>
+{{/contentFor}}
+
+     {{#ionView}}
+    {{#ionContent class="padding ruby light-bg"}}
+{{#with user}}
+  {{#ionList}}
+   {{#ionItem class="item-divider"}}
+    Configuration
+  {{/ionItem}}
+  {{/ionList}}
+{{/with}}
+    {{/ionContent}}
+  {{/ionView}}
+
+
+</template>

@@ -1,0 +1,11 @@
+settings.json
+config.push.json
+cordova.facebook.json
+npm-debug.log
+node_modules
+
+.DS_Store
+/**/.DS_Store
+.demeteorized/
+*~
+*.bfproject

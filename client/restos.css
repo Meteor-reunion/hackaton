@@ -1,0 +1,20 @@
+/* CSS declarations go here */
+
+
+.meteor-status {
+	z-index:100;
+}
+.avatar{
+float: left;
+margin-right: 16px;
+width: 40px;
+height: 40px;
+}
+.momentum-item{
+  height:77px;
+  
+}
+
+/*.content.overflow-scroll {
+bottom: 0px !important;
+}*/

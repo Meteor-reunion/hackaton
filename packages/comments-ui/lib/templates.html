@@ -1,0 +1,102 @@
+<template name="commentsBox">
+    {{! We have not found any good way to include templates with the same context
+        even when using Template.dynamic }}
+
+    {{#if customTpl}}
+        {{> customTpl }}
+    {{else}}
+        <div class="comments-box">
+                        {{#if templateIs 'ionic' }}
+                        
+                   
+                        {{#if loginAction}}
+                            <div class="warning message">You need to login to {{loginAction}}</div>
+                        {{/if}}
+
+
+                        {{> textarea }}
+                        <div class="list"> 
+                        {{#each comment}}
+                  
+                            {{> commentsSingleComment }}
+                           
+                        {{/each}}
+                        </div>
+                        {{#if hasMoreComments}}
+                            <div class="loadmore-action button">{{ take key='load-more' default='Load more comments' }}</div>
+                        {{/if}}
+                
+            {{/if}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="commentsSingleComment">
+
+    {{#if templateIs 'ionic' }}
+    
+
+    <div class="item comment" data-id="{{_id}}">
+       {{> avatar userId=userId size='small' shape='rounded' class=''}}
+      <h2><a class="author">{{user.displayName}}</a> <span class="date">{{createdAgo}}</span></h2>
+      <p class="text comment-content" data-id="{{commentId}}"> {{content}}</p>
+      
+          <div class="item tabs tabs-secondary tabs-icon-left actions">
+    <a class="tab-item like-action {{#if hasLiked}}active{{/if}}" href="#">
+      <i class="icon ion-thumbsup"></i>
+      {{likesCount}}
+    </a>
+    {{#if isOwnComment}}
+    {{#if isEditable}}
+    <a class="tab-item save-action" href="#">
+      {{ take key='save' default='Sauver' }}
+    </a>    
+    {{else}}
+    <a class="tab-item edit-action" href="#">
+      {{ take key='edit' default='Editer' }}
+    </a>     
+    {{/if}}
+    <a class="tab-item remove-action" href="#">
+      <i class="icon ion-trash-a"></i>
+      {{ take key='remove' default='Supprimer' }}
+    </a>                         
+
+      {{/if}}
+  </div>
+
+    </div>
+<div class="create-reply">
+                    {{#if addReply}}
+                        {{> textarea reply=true scope=this }}
+                    {{/if}}
+                </div>
+
+                {{#if reply}}
+                    <div class="comments reply-wrapper">
+                        {{#each reply}}
+                            {{> commentsSingleComment }}
+                        {{/each}}
+                    </div>
+                {{/if}}
+    {{/if}}
+</template>
+
+<template name="commentsTextarea">
+    {{#if templateIs 'ionic' }}  
+        <form class="{{#if reply}}reply-form{{else}}comment-form{{/if}}">
+        <div class="list">
+                 <div class="item item-divider">
+   {{ take key='title' default='Comments'}}
+  </div>
+            <label class="item item-input">
+                <textarea
+                    placeholder="{{ take key='placeholder-textarea' default='Join the discussion'}}"
+                    class="{{#if reply}}create-reply{{else}}create-comment{{/if}}"></textarea>
+            </label>
+            </div>
+            <button type="submit" class="submit button button-block button-positive">
+                {{ take key=addButtonKey default=addButtonText }}
+            </button>
+        </form>
+    {{/if}}
+</template>
