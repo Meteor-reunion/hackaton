@@ -70,8 +70,8 @@ input, button, select, textarea {
 @import '.meteor/rubyonic/partials/buttons';
 //@import '.meteor/rubyonic/partials/general';
 	// Background Images
-	$default-screen-background : 'http://observatoirecuisinespopulaires.fr/wp-content/uploads/2014/08/GaspillageAlimentaire.jpg';
-	$sidebar-profile-background : '/sidebar-bg.jpg';
+	$default-screen-background : '';
+	$sidebar-profile-background : '';
 	// .rubyonic-pane .bar {height: 50px;}
 	// .rubyonic-pane ion-content {padding-top:7px;}
 	// Margins
@@ -184,54 +184,49 @@ z-index: 1;
     border-color : #29b9aa;
 }
 
-.list .item .offretime {
-position: absolute;
-right: 0;
-padding-right: 20px;
-bottom: 0;
-display: -webkit-box;
-display: -webkit-flex;
-display: -moz-box;
-display: -moz-flex;
-display: -ms-flexbox;
-display: flex;
+.heading {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 30px;
+
+  .player {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35%;
+    border: 1px solid red;
+
+    .playerName {
+
+    }
+    .playerScore {
+
+    }
+  }
+  .timer {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20%;
+  }
 }
 
-.list .item .offreprice {
-position: absolute;
-right: 0;
-padding-right: 20px;
-bottom: 20px;
-display: -webkit-box;
-display: -webkit-flex;
-display: -moz-box;
-display: -moz-flex;
-display: -ms-flexbox;
-display: flex;
-}
+.bullets {
+  width: 100%;
+  height: 90%;
+  text-align: center;
 
-.list .item .menuoffre {
-position: absolute;
-right: 0;
-padding-right: 20px;
-top: 15px;
-display: -webkit-box;
-display: -webkit-flex;
-display: -moz-box;
-display: -moz-flex;
-display: -ms-flexbox;
-display: flex;
-}
+  .bullet {
+    border: 1px solid red;
+    display: inline-block;
+    width: 20%;
+    margin-left: 1%;
+    height: 20%;
+    margin-bottom: 1%;
+    text-align: center;
+    overflow: hidden;
 
-.list .item .menuresto {
-position: absolute;
-right: 0;
-padding-right: 15px;
-bottom: 15px;
-display: -webkit-box;
-display: -webkit-flex;
-display: -moz-box;
-display: -moz-flex;
-display: -ms-flexbox;
-display: flex;
+    background-image: url('grumpy.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
 }

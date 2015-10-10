@@ -1,4 +1,5 @@
 settings.json
+settings-dev.json
 config.push.json
 cordova.facebook.json
 npm-debug.log

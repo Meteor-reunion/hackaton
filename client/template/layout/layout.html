@@ -1,17 +1,13 @@
 <template name="layout">
+  {{#ionBody}}
+    {{> ionNavBar class="bar-positive"}}
 
-{{#ionBody}}
-  {{> ionNavBar class="bar-positive"}}
+    {{#ionNavView}}
+        {{> yield}}
+    {{/ionNavView}}
 
-
-  {{#ionNavView}}
-      {{> yield}}
-  {{/ionNavView}}
-
-{{> meteorStatus lang='fr'}}
-{{/ionBody}}
-
-
+    {{> meteorStatus lang='fr'}}
+  {{/ionBody}}
 </template>
 
 
