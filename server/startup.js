@@ -1,24 +1,38 @@
     Meteor.startup(function () {
-    /*var users = [
-      {name:"Normal User",email:"normal@example.com",roles:[]},
-      {name:"Restaurateur User",email:"manage@example.com",roles:['restaurateur']},
-      {name:"Admin User",email:"admin@example.com",roles:['admin']}
-    ];
+      var users = [
+        { username: "john",
+          emails: [ { address: "john@example.com", verified: true }],
+          profile: { name: "John Doe" }
+        },
+        {
+          username: "admin",
+          emails: [ { address: "admin@example.com", verified: true }],
+          profile: { name: "Admin" }
+        }
+      ]
 
-  _.each(users, function (user) {
-    var id;
+      _.each(users, function (user) {
+        try {
+          Accounts.createUser(user)
+        } catch (e) {
+          console.log(user.username+' already created');
+        }
+      })
 
-    id = Accounts.createUser({
-      email: user.email,
-      password: "Djab974",
-      profile: { name: user.name }
-    });
+      var user = Users.findOne({ username: "john" })
+      console.log(user)
+      var games = [
+        {
+          bullets: [1, 1, 1, 0,
+                    1, 0, 1, 1,
+                    1, 1, 0, 0,
+                    1, 1, 0, 1],
+          players: [ { userId: user._id,
+                       score: 0 } ]
+        }
+      ]
 
-    if (user.roles.length > 0) {
-      // Need _id of existing user record so this call must come 
-      // after `Accounts.createUser` or `Accounts.onCreate`
-      Roles.addUsersToRoles(id, user.roles);
-    }
-
-  });*/
+      _.each(games, function (game) {
+        Games.insert(game)
+      })
     });
