@@ -1,42 +1,50 @@
 <template name="home">
   {{#ionView}}
     {{#ionContent class="rubyonic-pane login-screen"}}
-      <div class="heading">
-        <div class="player">
-          <img class="avatar" src="http://placehold.it/40x40"/><span class="playerName">Spidou</span>
-          <div class="playerScore">
-            <span class="score">2000</span>
-          </div>
-        </div>
-        <div class="timer">
-          <span class="counter">1'00</span>
-        </div>
-        <div class="player">
-          <img class="avatar" src="http://placehold.it/40x40"/><span class="playerName">Tom</span>
-          <div class="playerScore">
-            <span class="score">1000</span>
-          </div>
-        </div>
+      <div class="">
+        <button class="joinGame">Join Game</button>
       </div>
-
-      <div class="bullets">
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-        <div class="bullet"></div>
-      </div>
+      {{> game }}
+      
     {{/ionContent}}
   {{/ionView}}
+</template>
+
+<template name="game">
+  <div class="heading">
+    <div class="player">
+      <img class="avatar" src="http://placehold.it/40x40"/><span class="playerName">Spidou</span>
+      <div class="playerScore">
+        <span class="score">2000</span>
+      </div>
+    </div>
+    <div class="timer">
+      <span class="counter">1'00</span>
+    </div>
+    <div class="player">
+      <img class="avatar" src="http://placehold.it/40x40"/><span class="playerName">Tom</span>
+      <div class="playerScore">
+        <span class="score">1000</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bullets">
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+    <div class="bullet"></div>
+  </div>
 </template>

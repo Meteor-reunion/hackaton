@@ -20,7 +20,6 @@
       })
 
       var user = Users.findOne({ username: "john" })
-      console.log(user)
       var games = [
         {
           bullets: [1, 1, 1, 0,

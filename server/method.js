@@ -3,6 +3,30 @@ function userName() {
 }
 
 Meteor.methods({
+  joinGame: function() {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    game = Games.find({ startedAt: null }).fetch()[0]
+    console.log(game)
+    if (game) {
+      Games.update({ _id: game._id }, {
+        $push: { players: { userid: this.userId, score: 0 } },
+        startedAt: new Date()
+      })
+    } else {
+      Games.insert({
+        bullets: [1, 1, 1, 0,
+                  1, 0, 1, 1,
+                  1, 1, 0, 0,
+                  1, 1, 0, 1],
+        players: [ { userId: user._id,
+                     score: 0 } ]
+      })
+    }
+  },
+
     deleteResto: function(restoId) {
         check(restoId, String);
         if (!this.userId) {
