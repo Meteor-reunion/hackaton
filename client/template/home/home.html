@@ -26,33 +26,40 @@
 </template>
 
 <template name="game">
-  <div class="heading">
-    <div class="player">
-      {{#with game}}
+  {{#with game}}
+    <div class="heading">
+      <div class="player">
         {{> avatar userId=game.players.[0].userId size='small' shape='rounded' class='avatar'}}
         <span class="username">{{username game.players.[0].userId}}</span> (<span class="rank">{{rank game.players.[0].userId}}</span>)
         <div class="playerScore">
           <span class="score">{{game.players.[0].score}}</span>
         </div>
-      {{/with}}
+      </div>
+      <div class="timer">
+        <span class="counter">{{timer}}</span>
+      </div>
+      <div class="player">
+          {{> avatar userId=game.players.[1].userId size='small' shape='rounded' class='avatar'}}
+          <span class="username">{{username game.players.[1].userId}}</span> (<span class="rank">{{rank game.players.[1].userId}}</span>)
+          <div class="playerScore">
+            <span class="score">{{game.players.[1].score}}</span>
+          </div>
+      </div>
     </div>
-    <div class="timer">
-      <span class="counter">{{timer}}</span>
-    </div>
-    <div class="player">
-      {{#with game}}
-        {{> avatar userId=game.players.[1].userId size='small' shape='rounded' class='avatar'}}
-        <span class="username">{{username game.players.[1].userId}}</span> (<span class="rank">{{rank game.players.[1].userId}}</span>)
-        <div class="playerScore">
-          <span class="score">{{game.players.[1].score}}</span>
-        </div>
-      {{/with}}
-    </div>
-  </div>
 
-  <div class="bullets">
-    {{#each key_value game.bullets}}
-      <div class="bullet value{{value}}" data-position="{{key}}"></div>
-    {{/each}}
-  </div>
+    {{#if gameInProgress game}}
+      <div class="bullets">
+        {{#each key_value game.bullets}}
+          <div class="bullet value{{value}}" data-position="{{key}}"></div>
+        {{/each}}
+      </div>
+    {{else}}
+      {{#if game.endedAt}}
+        <p class="">Game over</p>
+        <button class="replay">I wanna kick some cat's ass, pleaaase!</button>
+      {{else}}
+        <p>Please be patient, you will be able to kick some cat's butt as soon as possible. You can <a href="#">share this page</a> to invite other cat haters</p>
+      {{/if}}
+    {{/if}}
+  {{/with}}
 </template>

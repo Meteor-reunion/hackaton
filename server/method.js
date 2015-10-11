@@ -64,55 +64,61 @@ Meteor.methods({
 
     var game = Games.findOne({ _id: gameId })
 
-    // update bullet value for the given position
-    if (game) {
-      var playerIndex
-      game.players.forEach(function(player, index) {
-        if (player.userId == this.userId) {
-          playerIndex = index
-        }
-      }, this)
+    if (!game.endedAt) {
 
-      if (playerIndex == undefined) {
-        console.log('! Player '+this.userId+' is not in game '+gameId)
+      // update bullet value for the given position
+      if (game) {
+        var playerIndex
+        game.players.forEach(function(player, index) {
+          if (player.userId == this.userId) {
+            playerIndex = index
+          }
+        }, this)
+
+        if (playerIndex == undefined) {
+          console.log('! Player '+this.userId+' is not in game '+gameId)
+          throw new Meteor.Error("not-authorized");
+        }
+
+        var playerIncrement = 0
+        if (game.bullets[position] == 1) {
+          playerIncrement = 100
+          console.log('+1')
+        } else {
+          playerIncrement = -200
+          console.log('-1')
+        }
+
+        var setQuery = {}
+        setQuery['bullets.'+position] = catOrPoop(0.5)
+
+        var incQuery = {}
+        incQuery['players.'+playerIndex+'.score'] = playerIncrement
+
+        Games.update({ _id: gameId }, {
+          $set: setQuery,
+          $inc: incQuery
+        })
+
+        var editedGame = Games.findOne({ _id: gameId })
+        if (editedGame.bullets.indexOf(1) < 0) {
+          Games.update({ _id: gameId }, {
+            $set: { bullets: resetBullets() }
+          })
+        }
+      } else {
+        console.log('Player '+this.userId+' is not in game '+gameId)
         throw new Meteor.Error("not-authorized");
       }
 
-      var playerIncrement = 0
-      if (game.bullets[position] == 1) {
-        playerIncrement = 100
-        console.log('+1')
-      } else {
-        playerIncrement = -200
-        console.log('-1')
-      }
-
-      var setQuery = {}
-      setQuery['bullets.'+position] = catOrPoop(0.5)
-
-      var incQuery = {}
-      incQuery['players.'+playerIndex+'.score'] = playerIncrement
-
-      Games.update({ _id: gameId }, {
-        $set: setQuery,
-        $inc: incQuery
-      })
-
-      var editedGame = Games.findOne({ _id: gameId })
-      if (editedGame.bullets.indexOf(1) < 0) {
-        Games.update({ _id: gameId }, {
-          $set: { bullets: resetBullets() }
-        })
-      }
     } else {
-      console.log('Player '+this.userId+' is not in game '+gameId)
-      throw new Meteor.Error("not-authorized");
+      console.log('La partie est terminée, les envois ne sont plus pris en charge')
     }
   },
 
   sendTimer: function(gameId) {
     var game = Games.findOne({ _id: gameId })
-    var timer = game.timer || 60
+    var timer = game.timer || 10 // 60
     var interval = Meteor.setInterval(function() {
       timer--
       console.log(timer)
@@ -121,10 +127,47 @@ Meteor.methods({
       })
       if (timer <= 0) {
         Meteor.clearInterval(interval)
-        Games.update({ _id: gameId }, {
-          $set: { endedAt: new Date() }
-        })
+        Meteor.call('endGame', gameId)
       }
     }, 1000)
+  },
+
+  endGame: function(gameId) {
+    var game = Games.findOne({ _id: gameId })
+    Games.update({ _id: gameId }, {
+      $set: { endedAt: new Date() }
+    })
+
+    var bestPlayerId
+    var bestPlayerScore = -1000000
+    console.log(game.players)
+    game.players.forEach(function(player) {
+      console.log('player.userId: '+player.userId)
+      console.log('player.score: '+player.score)
+      if (player.score > bestPlayerScore) {
+        bestPlayerId = player.userId
+        bestPlayerScore = player.score
+      }
+    })
+    console.log('bestPlayerId: '+bestPlayerId)
+
+    Meteor.call('updatePlayerSubRank', bestPlayerId)
+  },
+
+  updatePlayerSubRank: function(playerId) {
+    Users.update({ _id: playerId }, {
+      $inc: { 'profile.subRank': 1000 }
+    })
+
+    console.log(playerId)
+    updatedUser = Users.findOne({ _id: playerId })
+    console.log('updatedUser')
+    console.log(updatedUser)
+    var maxPerSubRank = 1900 // 10000
+    if (updatedUser.profile.subRank >= maxPerSubRank) {
+      Users.update({ _id: playerId }, {
+        $inc: { 'profile.subRank': -maxPerSubRank, 'profile.rank': 1 }
+      })
+    }
   }
 })

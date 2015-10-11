@@ -39,11 +39,21 @@ Template.game.helpers({
     } else {
       return "?"
     }
+  },
+
+  gameInProgress: function(game) {
+    return game.startedAt && !game.endedAt
   }
 });
 
 Template.game.events({
   'click .bullet': function (event) {
     Meteor.call('sendPosition', Session.get('currentGame'), $(event.target).attr('data-position'))
+  },
+
+  'click .replay': function (event) {
+    Meteor.call('joinGame', function(err, game) {
+      Session.set('currentGame', game)
+    })
   }
 });
