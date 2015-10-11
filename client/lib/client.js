@@ -2,6 +2,8 @@
   return [false];
 });*/
 
+catSound = new Blaze.ReactiveVar('cat')
+
 Meteor.startup(function () {
 
   language = window.navigator.userLanguage || window.navigator.language;

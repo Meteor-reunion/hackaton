@@ -24,9 +24,9 @@ Template.game.helpers({
   },
 
   username: function(userId) {
-    console.log(userId)
+    //console.log(userId)
     if (user = Users.findOne({ _id: userId })) {
-      console.log(user)
+      //console.log(user)
       return user.profile.name
     } else {
       return "Utiliseur inconnu"
@@ -55,5 +55,16 @@ Template.game.events({
     Meteor.call('joinGame', function(err, game) {
       Session.set('currentGame', game)
     })
+  },
+
+  'click .bullet.value1': function(event) {
+
+
+    catSound.get().play()
   }
 });
+
+Template.game.onRendered(function() {
+  // ReactiveVar.set('catSound', )
+  catSound.set(new Howl({urls: ['/cat.mp3']}).play())
+})
