@@ -228,10 +228,10 @@ z-index: 1;
     background-repeat: no-repeat;
     background-position: 50% 50%;
 
-    &.cat {
+    &.value1 {
       background-image: url('cat.png');
     }
-    &.poop {
+    &.value0 {
       background-image: url('poop.png');
     }
   }

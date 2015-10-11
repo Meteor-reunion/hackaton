@@ -12,7 +12,21 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
-    game = Games.find({ startedAt: null }).fetch()[0]
+    var games = Games.find({ startedAt: null }).fetch()
+    var alreadyInPendingGame
+    games.forEach(function(game) {
+      alreadyInPendingGame = game.players.filter(function(player, index){
+        if (player.userId == this.userId) {
+          return true
+        }
+      })
+    })
+
+    if (alreadyInPendingGame) {
+      return alreadyInPendingGame._id
+    }
+
+    var game = games[0]
     var gameId
     if (game) {
       Games.update({ _id: game._id }, {
@@ -39,6 +53,10 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
+    if (!position) {
+      throw new Meteor.Error("Position is required")
+    }
+
     var game = Games.findOne({ _id: gameId })
 
     // update bullet value for the given position
@@ -63,8 +81,6 @@ Meteor.methods({
       var incQuery = {}
       incQuery['players.'+playerIndex+'.score'] = playerIncrement
 
-      console.log(setQuery)
-      console.log(incQuery)
       Games.update({ _id: gameId }, {
         $set: setQuery,
         $inc: incQuery
