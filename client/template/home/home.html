@@ -1,13 +1,23 @@
 <template name="home">
+  {{#contentFor "headerButtonLeft"}}
+  {{#if currentUser}}
+  <a class="button button-icon icon ion-log-out" href="{{pathFor route='signOut'}}"></a>
+  {{/if}}
+{{/contentFor}}
+
+{{#contentFor "headerTitle"}}
+  <h1 class="title">Oopscat</h1>
+{{/contentFor}}
+
   {{#ionView}}
     {{#ionContent class="rubyonic-pane login-screen"}}
     {{#if currentGame}}
       {{> game }}
         {{else}}
         {{#ionList}}
-        {{#ionItem buttonRight=true}}
-         <button class="joinGame">{{_ "Join Game"}}</button>
- {{/ionItem}}
+ <button class="joinGame button button-block button-balanced">
+  {{_ "Join Game"}}
+</button>
          {{/ionList}}
       {{/if}}
 
@@ -19,7 +29,7 @@
   <div class="heading">
     <div class="player">
       {{#with game}}
-        {{> avatar userId=game.players.[0]._id size='small' shape='rounded' class='avatar'}}
+        {{> avatar userId=game.players.[0].userId size='small' shape='rounded' class='avatar'}}
         <span class="username">{{username game.players.[0].userId}}</span> (<span class="rank">{{rank game.players.[0].userId}}</span>)
         <div class="playerScore">
           <span class="score">{{game.players.[0].score}}</span>
@@ -31,7 +41,7 @@
     </div>
     <div class="player">
       {{#with game}}
-        {{> avatar userId=game.players.[1]._id size='small' shape='rounded' class='avatar'}}
+        {{> avatar userId=game.players.[1].userId size='small' shape='rounded' class='avatar'}}
         <span class="username">{{username game.players.[1].userId}}</span> (<span class="rank">{{rank game.players.[1].userId}}</span>)
         <div class="playerScore">
           <span class="score">{{game.players.[1].score}}</span>

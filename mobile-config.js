@@ -7,7 +7,7 @@ App.info({
   version: '0.0.1'
 });
 
-App.icons({
+/*App.icons({
   'android_ldpi': 'ressource/android/res/drawable-ldpi/appicon.png',
   'android_mdpi': 'ressource/android/res/drawable-mdpi/appicon.png',
   'android_hdpi': 'ressource/android/res/drawable-hdpi/appicon.png',
@@ -20,15 +20,15 @@ App.launchScreens({
   'android_mdpi_portrait': 'ressource/android/res/drawable-mdpi/default.png',
   'android_hdpi_portrait': 'ressource/android/res/drawable-hdpi/default.png',
   'android_xhdpi_portrait': 'ressource/android/res/drawable-xhdpi/default.png'
-});
+});*/
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
 
 App.accessRule('*');
 
-/*App.configurePlugin('com.phonegap.plugins.facebookconnect', {
-  APP_ID: '',
-  API_KEY: '',
-  APP_NAME:''
-});*/
+App.configurePlugin('com.phonegap.plugins.facebookconnect', {
+  APP_ID: '480078522174126',
+  API_KEY: 'ecd8c57f1608f4c39a2de51d4834cd9a',
+  APP_NAME:'oopscat'
+});
