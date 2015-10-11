@@ -29,7 +29,6 @@
   {{#with game}}
     <div class="heading">
       <div class="player player1">
-        {{> avatar userId=game.players.[0]._userId size='small' shape='rounded' class='avatar'}}
         <span class="playerName">{{username game.players.[0].userId}}</span> (<span class="rank">{{rank game.players.[0].userId}}</span>)
         <div class="playerScore">
           <span class="score">{{game.players.[0].score}}</span>
@@ -39,7 +38,6 @@
         <span class="counter">{{timer}}</span>
       </div>
       <div class="player player2">
-          {{> avatar userId=game.players.[1].userId size='small' shape='rounded' class='avatar'}}
           <span class="playerName">{{username game.players.[1].userId}}</span> (<span class="rank">{{rank game.players.[1].userId}}</span>)
           <div class="playerScore">
             <span class="score">{{game.players.[1].score}}</span>
