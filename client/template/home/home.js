@@ -8,14 +8,37 @@ Template.home.events({
 
 
 Template.home.helpers({
-  currentGame : function (){
+  currentGame: function () {
     return Session.get('currentGame');
   }
 });
 
 Template.game.helpers({
-  game : function (){
+  game: function () {
     return Games.findOne({});
+  },
+
+  timer: function() {
+    var game = Games.findOne({})
+    return game.timer
+  },
+
+  username: function(userId) {
+    console.log(userId)
+    if (user = Users.findOne({ _id: userId })) {
+      console.log(user)
+      return user.profile.name
+    } else {
+      return "Utiliseur inconnu"
+    }
+  },
+
+  rank: function(userId) {
+    if (user = Users.findOne({ _id: userId })) {
+      return user.profile.rank
+    } else {
+      return "?"
+    }
   }
 });
 

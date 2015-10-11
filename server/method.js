@@ -1,9 +1,17 @@
 function userName() {
-    return Meteor.user().username || Meteor.user().profile.name;
+  return Meteor.user().username || Meteor.user().profile.name;
 }
 
-function catOrPoop() {
-  return Math.random() < 0.5 ? 0 : 1
+function resetBullets() {
+  var bullets = []
+  for (var i = 0; i < 16; i++) {
+    bullets.push(catOrPoop(0.3))
+  }
+  return bullets
+}
+
+function catOrPoop(luck) {
+  return Math.random() < luck ? 0 : 1
 }
 
 Meteor.methods({
@@ -21,8 +29,8 @@ Meteor.methods({
         }
       })
     })
-    
-    if (alreadyInPendingGame.length > 0) {
+
+    if (alreadyInPendingGame && alreadyInPendingGame.length > 0) {
       return alreadyInPendingGame[0]._id
     }
 
@@ -30,17 +38,14 @@ Meteor.methods({
     var gameId
     if (game) {
       Games.update({ _id: game._id }, {
-        $push: { players: { userid: this.userId, score: 0 } },
+        $push: { players: { userId: this.userId, score: 0 } },
         $set: { startedAt: new Date() }
       })
       gameId = game._id
+      Meteor.call('sendTimer', gameId)
     } else {
-      var bullets = []
-      for (var i = 0; i < 16; i++) {
-        bullets.push(catOrPoop())
-      }
       gameId = Games.insert({
-        bullets: bullets,
+        bullets: resetBullets(),
         players: [ { userId: this.userId,
                      score: 0 } ]
       })
@@ -62,21 +67,28 @@ Meteor.methods({
     // update bullet value for the given position
     if (game) {
       var playerIndex
-      game.players.map(function(player, index){
+      game.players.forEach(function(player, index) {
         if (player.userId == this.userId) {
           playerIndex = index
         }
-      })
+      }, this)
+
+      if (playerIndex == undefined) {
+        console.log('! Player '+this.userId+' is not in game '+gameId)
+        throw new Meteor.Error("not-authorized");
+      }
 
       var playerIncrement = 0
       if (game.bullets[position] == 1) {
-        playerIncrement = 1
+        playerIncrement = 100
+        console.log('+1')
       } else {
-        playerIncrement = -1
+        playerIncrement = -200
+        console.log('-1')
       }
 
       var setQuery = {}
-      setQuery['bullets.'+position] = catOrPoop()
+      setQuery['bullets.'+position] = catOrPoop(0.5)
 
       var incQuery = {}
       incQuery['players.'+playerIndex+'.score'] = playerIncrement
@@ -85,9 +97,34 @@ Meteor.methods({
         $set: setQuery,
         $inc: incQuery
       })
+
+      var editedGame = Games.findOne({ _id: gameId })
+      if (editedGame.bullets.indexOf(1) < 0) {
+        Games.update({ _id: gameId }, {
+          $set: { bullets: resetBullets() }
+        })
+      }
     } else {
       console.log('Player '+this.userId+' is not in game '+gameId)
       throw new Meteor.Error("not-authorized");
     }
+  },
+
+  sendTimer: function(gameId) {
+    var game = Games.findOne({ _id: gameId })
+    var timer = game.timer || 60
+    var interval = Meteor.setInterval(function() {
+      timer--
+      console.log(timer)
+      Games.update({ _id: gameId }, {
+        $set: { timer: timer }
+      })
+      if (timer <= 0) {
+        Meteor.clearInterval(interval)
+        Games.update({ _id: gameId }, {
+          $set: { endedAt: new Date() }
+        })
+      }
+    }, 1000)
   }
 })

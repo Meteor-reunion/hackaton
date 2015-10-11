@@ -2,12 +2,12 @@ Meteor.publish(null, function (){
   return Meteor.roles.find({})
 })
 
-Meteor.publish('game', function() {
+Meteor.publish('game', function(gameId) {
 	if (!this.userId) {
    return;
     }
     //filter userId
-    return Games.find({});
+    return Games.find({ _id: gameId });
 });
 
 Meteor.publish('allUser', function() {

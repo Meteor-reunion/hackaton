@@ -19,22 +19,24 @@
   <div class="heading">
     <div class="player">
       {{#with game}}
-      {{> avatar userId=game.players.[0]._id size='small' shape='rounded' class='avatar'}}
-      <div class="playerScore">
-        <span class="score">{{game.players.[0].score}}</span>
-      </div>
-        {{/with}}
+        {{> avatar userId=game.players.[0]._id size='small' shape='rounded' class='avatar'}}
+        <span class="username">{{username game.players.[0].userId}}</span> (<span class="rank">{{rank game.players.[0].userId}}</span>)
+        <div class="playerScore">
+          <span class="score">{{game.players.[0].score}}</span>
+        </div>
+      {{/with}}
     </div>
     <div class="timer">
-      <span class="counter">1'00</span>
+      <span class="counter">{{timer}}</span>
     </div>
     <div class="player">
-            {{#with game}}
-      {{> avatar userId=game.players.[1]._id size='small' shape='rounded' class='avatar'}}
-      <div class="playerScore">
-        <span class="score">{{game.players.[1].score}}</span>
-      </div>
-            {{/with}}
+      {{#with game}}
+        {{> avatar userId=game.players.[1]._id size='small' shape='rounded' class='avatar'}}
+        <span class="username">{{username game.players.[1].userId}}</span> (<span class="rank">{{rank game.players.[1].userId}}</span>)
+        <div class="playerScore">
+          <span class="score">{{game.players.[1].score}}</span>
+        </div>
+      {{/with}}
     </div>
   </div>
 

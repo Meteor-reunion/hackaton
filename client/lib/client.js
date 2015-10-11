@@ -2,8 +2,6 @@
   return [false];
 });*/
 
-
-
 Meteor.startup(function () {
 
   language = window.navigator.userLanguage || window.navigator.language;
@@ -15,7 +13,8 @@ Meteor.startup(function () {
       language = language.split('_')[0];
 
     Session.set("showLoadingIndicator", true);
-    Session.setDefault("currentGame", false)
+    Session.setDefault("currentGame", false);
+
 
     TAPi18n.setLanguage(language)
       .done(function () {
@@ -55,6 +54,9 @@ Tracker.autorun(function() {
         alert("Fermer et ré-ouvrir cette application pour obtenir la nouvelle version!");
     }
 });
+
 Tracker.autorun(function() {
-Meteor.subscribe('game');
+  if (Session.get('currentGame')) {
+    Meteor.subscribe('game', Session.get('currentGame'));
+  }
 });
