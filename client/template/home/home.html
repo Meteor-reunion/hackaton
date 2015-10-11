@@ -1,7 +1,7 @@
 <template name="home">
   {{#ionView}}
     {{#ionContent class="rubyonic-pane login-screen"}}
-    {{#if gameStart}}
+    {{#if currentGame}}
       {{> game }}
         {{else}}
         {{#ionList}}

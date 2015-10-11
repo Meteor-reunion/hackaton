@@ -1,14 +1,15 @@
 Template.home.events({
   'click .joinGame': function (event) {
-    Session.set('gameStart',true);
-    Meteor.call('joinGame');
+    Meteor.call('joinGame', function(err, game) {
+      Session.set('currentGame', game)
+    })
   }
 });
 
 
 Template.home.helpers({
-  gameStart : function (){
-    return Session.get('gameStart');
+  currentGame : function (){
+    return Session.get('currentGame');
   }
 });
 

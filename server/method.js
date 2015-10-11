@@ -21,9 +21,9 @@ Meteor.methods({
         }
       })
     })
-
-    if (alreadyInPendingGame) {
-      return alreadyInPendingGame._id
+    
+    if (alreadyInPendingGame.length > 0) {
+      return alreadyInPendingGame[0]._id
     }
 
     var game = games[0]

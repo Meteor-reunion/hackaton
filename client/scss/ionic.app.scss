@@ -216,7 +216,6 @@ z-index: 1;
   text-align: center;
 
   .bullet {
-    border: 1px solid red;
     display: inline-block;
     width: 20%;
     margin-left: 1%;
@@ -224,6 +223,7 @@ z-index: 1;
     margin-bottom: 1%;
     text-align: center;
     overflow: hidden;
+    cursor: pointer;
 
     background-repeat: no-repeat;
     background-position: 50% 50%;
