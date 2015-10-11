@@ -118,7 +118,7 @@ Meteor.methods({
 
   sendTimer: function(gameId) {
     var game = Games.findOne({ _id: gameId })
-    var timer = game.timer || 10 // 60
+    var timer = game.timer || 30
     var interval = Meteor.setInterval(function() {
       timer--
       console.log(timer)

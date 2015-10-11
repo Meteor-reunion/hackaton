@@ -20,7 +20,7 @@ Template.game.helpers({
 
   timer: function() {
     var game = Games.findOne({})
-    return game.timer
+    return game.timer || '30'
   },
 
   username: function(userId) {
