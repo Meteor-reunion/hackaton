@@ -1,10 +1,15 @@
 <template name="home">
   {{#ionView}}
     {{#ionContent class="rubyonic-pane login-screen"}}
-      <div class="">
-        <button class="joinGame">Join Game</button>
-      </div>
+    {{#if gameStart}}
       {{> game }}
+        {{else}}
+        {{#ionList}}
+        {{#ionItem buttonRight=true}}
+         <button class="joinGame">{{_ "Join Game"}}</button>
+ {{/ionItem}}
+         {{/ionList}}
+      {{/if}}
 
     {{/ionContent}}
   {{/ionView}}
@@ -13,24 +18,28 @@
 <template name="game">
   <div class="heading">
     <div class="player">
-      <img class="avatar" src="http://placehold.it/40x40"/><span class="playerName">Spidou</span>
+      {{#with game}}
+      {{> avatar userId=game.[0]._id size='small' shape='rounded' class='avatar'}}
       <div class="playerScore">
-        <span class="score">2000</span>
+        <span class="score">{{game.[0].score}}</span>
       </div>
+        {{/with}}
     </div>
     <div class="timer">
       <span class="counter">1'00</span>
     </div>
     <div class="player">
-      <img class="avatar" src="http://placehold.it/40x40"/><span class="playerName">Tom</span>
+            {{#with game}}
+      {{> avatar userId=game.[1]._id size='small' shape='rounded' class='avatar'}}
       <div class="playerScore">
-        <span class="score">1000</span>
+        <span class="score">{{game.[1].score}}</span>
       </div>
+            {{/with}}
     </div>
   </div>
 
   <div class="bullets">
-    {{#each game}}
+    {{#each game.bullets}}
     <div class="bullet">{{$this}}</div>
     {{/each}}
   </div>
