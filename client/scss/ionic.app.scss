@@ -225,8 +225,14 @@ z-index: 1;
     text-align: center;
     overflow: hidden;
 
-    background-image: url('grumpy.png');
     background-repeat: no-repeat;
     background-position: 50% 50%;
+
+    &.cat {
+      background-image: url('cat.png');
+    }
+    &.poop {
+      background-image: url('poop.png');
+    }
   }
 }
