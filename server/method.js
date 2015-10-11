@@ -83,10 +83,10 @@ Meteor.methods({
         var playerIncrement = 0
         if (game.bullets[position] == 1) {
           playerIncrement = 100
-          console.log('+1')
+          //console.log('+1')
         } else {
           playerIncrement = -200
-          console.log('-1')
+          //console.log('-1')
         }
 
         var setQuery = {}
@@ -121,7 +121,6 @@ Meteor.methods({
     var timer = game.timer || 30
     var interval = Meteor.setInterval(function() {
       timer--
-      console.log(timer)
       Games.update({ _id: gameId }, {
         $set: { timer: timer }
       })
@@ -140,16 +139,12 @@ Meteor.methods({
 
     var bestPlayerId
     var bestPlayerScore = -1000000
-    console.log(game.players)
     game.players.forEach(function(player) {
-      console.log('player.userId: '+player.userId)
-      console.log('player.score: '+player.score)
       if (player.score > bestPlayerScore) {
         bestPlayerId = player.userId
         bestPlayerScore = player.score
       }
     })
-    console.log('bestPlayerId: '+bestPlayerId)
 
     Meteor.call('updatePlayerSubRank', bestPlayerId)
   },

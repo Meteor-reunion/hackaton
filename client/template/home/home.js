@@ -58,13 +58,15 @@ Template.game.events({
   },
 
   'click .bullet.value1': function(event) {
+    catSound.get() && catSound.get().play()
+  },
 
-
-    catSound.get().play()
+  'click .bullet.value0': function(event) {
+    poopSound.get() && poopSound.get().play()
   }
 });
 
 Template.game.onRendered(function() {
-  // ReactiveVar.set('catSound', )
-  catSound.set(new Howl({urls: ['/cat.mp3']}).play())
+  catSound.set(new Howl({urls: ['/cat.mp3']}))
+  poopSound.set(new Howl({urls: ['/poop.mp3']}))
 })

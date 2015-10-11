@@ -6,7 +6,7 @@
 {{/contentFor}}
 
 {{#contentFor "headerTitle"}}
-  <h1 class="title">Oopscat</h1>
+  <h1 class="title">OopsCat</h1>
 {{/contentFor}}
 
   {{#ionView}}
@@ -15,9 +15,12 @@
       {{> game }}
         {{else}}
         {{#ionList}}
- <button class="joinGame button button-block button-balanced">
-  {{_ "Join Game"}}
-</button>
+          <button class="joinGame button button-block button-balanced">
+            {{_ "Join Game"}}
+          </button>
+          <div class="logo">
+            <img src="/oopscat.png"/>
+          </div>
          {{/ionList}}
       {{/if}}
 
