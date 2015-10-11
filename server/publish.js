@@ -24,7 +24,7 @@ Meteor.publishComposite('game', function(gameId) {
               var userIds = game.players.map(function(player){
                 return player.userId;
               });
-              console.log(userIds);
+              //console.log(userIds);
                 return Users.find({
                     _id: {$in:userIds}
                 }, {

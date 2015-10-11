@@ -6,7 +6,7 @@
 {{/contentFor}}
 
 {{#contentFor "headerTitle"}}
-  <h1 class="title">Oopscat</h1>
+  <h1 class="title">OopsCat</h1>
 {{/contentFor}}
 
   {{#ionView}}
@@ -15,9 +15,12 @@
       {{> game }}
         {{else}}
         {{#ionList}}
- <button class="joinGame button button-block button-balanced">
-  {{_ "Join Game"}}
-</button>
+          <button class="joinGame button button-block button-balanced">
+            {{_ "Join Game"}}
+          </button>
+          <div class="logo">
+            <img src="/oopscat.png"/>
+          </div>
          {{/ionList}}
       {{/if}}
 
@@ -55,7 +58,7 @@
       <div class="under">
         {{#if game.endedAt}}
           <p class="finished">Game over</p>
-          <button class="replay">I wanna kick some cat's ass, pleaaase!</button>
+          <button class="replay">I wanna kick some cat's asses, pleaaase!</button>
         {{else}}
           <p>Please be patient, you will be able to kick some cat's butt as soon as possible. You can <a href="#">share this page</a> to invite other cat haters</p>
         {{/if}}
