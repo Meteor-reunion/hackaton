@@ -2,6 +2,14 @@ Meteor.publish(null, function (){
   return Meteor.roles.find({})
 })
 
+Meteor.publish('game', function() {
+	if (!this.userId) {
+   return;
+    }
+    //filter userId
+    return Games.find({});
+});
+
 Meteor.publish('allUser', function() {
 	if (!this.userId) {
    return;

@@ -5,7 +5,7 @@
         <button class="joinGame">Join Game</button>
       </div>
       {{> game }}
-      
+
     {{/ionContent}}
   {{/ionView}}
 </template>
@@ -30,21 +30,8 @@
   </div>
 
   <div class="bullets">
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
-    <div class="bullet"></div>
+    {{#each game}}
+    <div class="bullet">{{$this}}</div>
+    {{/each}}
   </div>
 </template>

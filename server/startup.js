@@ -1,11 +1,13 @@
     Meteor.startup(function () {
       var users = [
         { username: "john",
+          password: "Djab974",
           emails: [ { address: "john@example.com", verified: true }],
           profile: { name: "John Doe" }
         },
         {
           username: "admin",
+          password: "Djab974",
           emails: [ { address: "admin@example.com", verified: true }],
           profile: { name: "Admin" }
         }
