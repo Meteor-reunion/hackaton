@@ -18,7 +18,8 @@ Meteor.startup(function () {
     Session.set("showLoadingIndicator", true);
     Session.setDefault("currentGame", false);
 
-
+T9n.setLanguage(language);
+Helpers.setLanguage(language);
     TAPi18n.setLanguage(language)
       .done(function () {
         Session.set("showLoadingIndicator", false);
@@ -37,6 +38,12 @@ Meteor.startup(function () {
 function userName() {
     return Meteor.user().username || Meteor.user().profile.name;
 }
+
+Template.registerHelper('langChoix',
+function() {
+    return Helpers.language();
+  }
+);
 
 Handlebars.registerHelper('key_value', function(context, options) {
   var result = [];

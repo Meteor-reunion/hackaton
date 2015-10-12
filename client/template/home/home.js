@@ -25,7 +25,7 @@ Template.game.helpers({
 
   username: function(userId) {
     //console.log(userId)
-    if (user = Users.findOne({ _id: userId })) {
+    if (user = Users.findOne({ _id: userId})) {
       //console.log(user)
       return user.profile.name
     } else {

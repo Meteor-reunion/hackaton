@@ -4,7 +4,7 @@ Meteor.startup(function () {
 		window.alert = navigator.notification.alert;
 	}
 
- Push.addListener('startup', function(notification) {
+ /*Push.addListener('startup', function(notification) {
 
   if(notification.payload.pushType === 'startGame'){
     Router.go('startGame', {
@@ -38,4 +38,5 @@ Push.addListener('message', function(notification) {
 		}
 		window.alert(notification.message, alertDismissed, notification.payload.title, "Ok");
 	});
+	*/
 });

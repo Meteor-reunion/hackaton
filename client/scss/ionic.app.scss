@@ -1,32 +1,6 @@
-/*
-To customize the look and feel of Ionic, you can override the variables
-in ionic's _variables.scss file.
-
-For example, you might change some of the default colors:
-
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
-$calm:                            #11c1f3 !default;
-$balanced:                        #33cd5f !default;
-$energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
-*/
 
 
-// Include all of Ionic
-//@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
-//@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/ionicons';
-// The path for our ionicons font files, relative to the built CSS in www/css
-
-// The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "/fonts" !default;
-
-// Rubyonic Files
-@import '.meteor/rubyonic/partials/colors';
-// Include all of Ionic
 
 $font-family-base : Raleway !default;
 $font-src : '/fonts/Raleway-Regular.ttf';
@@ -34,7 +8,6 @@ $font-src : '/fonts/Raleway-Regular.ttf';
 $secondary-font-family-base : Ubuntu !default;
 $secondary-font-src : '/fonts/Ubuntu-Light.ttf';
 
-@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/ionic';
 
 @font-face {
     font-family: $font-family-base;
@@ -47,6 +20,9 @@ $secondary-font-src : '/fonts/Ubuntu-Light.ttf';
     src: url($secondary-font-src) format('truetype');
     font-weight: 200;
 }
+
+@import 'ionic';
+@import 'ionicons';
 
 body *, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-family: $font-family-base , Fallback, sans-serif;
@@ -64,11 +40,7 @@ input, button, select, textarea {
 .text-left {text-align: left;}
 .uppercase {text-transform:uppercase;}
 
-// Rubyonic Files
-@import '.meteor/rubyonic/partials/mixins';
-@import '.meteor/rubyonic/partials/theme';
-@import '.meteor/rubyonic/partials/buttons';
-//@import '.meteor/rubyonic/partials/general';
+
 	// Background Images
 	$default-screen-background : '';
 	$sidebar-profile-background : '';
@@ -78,68 +50,11 @@ input, button, select, textarea {
 	.no-margin {margin:0;}
 	// .rubyonic-pane {padding-top:10px;}
 	.rubyonic-pane .ruby-button-clear {border:none; background:none;}
-//@import '.meteor/rubyonic/screens/login';
-.login-screen {background-color: white;
-}
-.backgroundimg
-     {
-    background: url($default-screen-background) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-       content: "";
-       top: 0px;
-       left: 0px;
-       bottom: 0;
-       right: 0;
-       position: absolute;
-       z-index: -1;
-       opacity: 0.5;
-    }
-.overflow-scroll {
-z-index: 1;
-}
-@keyframes backgroundanim {
-    0% { background-color: $positive; }
-  48% { background-color: $calm; }
-  84% { background-color: $positive; }
-}
-@-webkit-keyframes backgroundanim {
-    0% { background-color: $positive; }
-  48% { background-color: $calm; }
-  84% { background-color: $positive; }
-}
+
+.login-screen {background-color: white;}
+
 
 .login-screen .logo {padding:20px 0 0 0; text-align: center;}
-//.login-screen .logo img {width:70%;}
-
-
-.title-on-lines {
-  position: relative;
-  text-align: center;
-}
-
-.title-on-lines span {
-  background: $clouds;
-  @include border-radius(5px);
-  padding: 0 15px;
-  position: relative;
-  z-index: 1;
-}
-
-.title-on-lines:before {
-  background: $white;
-  content: "";
-  display: block;
-  height: 1px;
-  position: absolute;
-    top: 50%;
-  width: 100%;
-}
-.title-on-lines:before {
-  left: 0;
-}
 
 .divider{
         color:#ccc;
@@ -162,16 +77,7 @@ z-index: 1;
     .divider:after{
         margin:0 -55% 0 2%;
     }
-@import '.meteor/rubyonic/screens/feed';
-@import '.meteor/rubyonic/screens/sidebar';
-@import '.meteor/rubyonic/screens/chat';
-@import '.meteor/rubyonic/screens/profile';
-@import '.meteor/rubyonic/screens/chat-ui';
-@import '.meteor/rubyonic/screens/viewpost';
-@import '.meteor/rubyonic/partials/forms';
-//@import '.meteor/ionic/scss/ionic';
 
-@import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/ionicons';
 
 
 #iron-router-progress {

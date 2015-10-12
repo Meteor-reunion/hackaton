@@ -1,9 +1,7 @@
 Meteor.startup(function() {
   // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users asking for help with their account, be sure to set this to an email address that you can receive email at.
-  Accounts.emailTemplates.from = 'Hackaton meteor <no-reply@outremerveilles.com>';
-
-  // The public name of your application. Defaults to the DNS name of the application (eg: awesome.meteor.com).
-  Accounts.emailTemplates.siteName = 'Hackaton';
+  //Accounts.emailTemplates.from = 'OopsCat <>';
+  Accounts.emailTemplates.siteName = 'OopsCat';
 
   // A Function that takes a user object and returns a String for the subject line of the email.
   Accounts.emailTemplates.verifyEmail.subject = function(user) {
@@ -20,7 +18,7 @@ Accounts.emailTemplates.enrollAccount.subject = function (user) {
     return "Bienvenue sur Mapphotos, " + user.username;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
-   return "Vous avez été sélectionné pour participer à Hackaton!"
+   return "Vous avez été sélectionné pour participer à OopsCat !"
      + " Pour activer votre compte, cliquez simplement sur le lien ci-dessous:\n\n"
      + url;
 };
@@ -34,7 +32,7 @@ Accounts.emailTemplates.resetPassword.text = function (user, url) {
 };
 
 Accounts.emailTemplates.enrollAccount.subject = function (user) {
-    return "Un compte a été créé pour vous sur Mapphotos " + user.username;
+    return "Un compte a été créé pour vous sur OopsCat " + user.username;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
    return "Pour commencer à utiliser le service, il suffit de cliquer sur le lien ci-dessous:\n\n"
@@ -42,7 +40,7 @@ Accounts.emailTemplates.enrollAccount.text = function (user, url) {
 };
 
 Accounts.emailTemplates.verifyEmail.subject = function (user) {
-    return "Vérifier votre adresse e-mail sur Mapphotos " + user.username;
+    return "Vérifier votre adresse e-mail sur OOpsCat" + user.username;
 };
 Accounts.emailTemplates.verifyEmail.text = function (user, url) {
    return " Pour vérifier votre compte e-mail, cliquez simplement sur le lien ci-dessous:\n\n"

@@ -2,13 +2,6 @@ Meteor.publish(null, function (){
   return Meteor.roles.find({})
 })
 
-/*Meteor.publish('game', function(gameId) {
-	if (!this.userId) {
-   return;
-    }
-    //filter userId
-    return Games.find({ _id: gameId });
-});*/
 
 Meteor.publishComposite('game', function(gameId) {
     return {
@@ -24,7 +17,6 @@ Meteor.publishComposite('game', function(gameId) {
               var userIds = game.players.map(function(player){
                 return player.userId;
               });
-              //console.log(userIds);
                 return Users.find({
                     _id: {$in:userIds}
                 }, {
@@ -73,34 +65,4 @@ Meteor.publish('singleUser', function() {
             'emails': 1,
         }
     });
-});
-
-
-Meteor.publish('up', function(gameId) {
-  check(gameId, String);
-	if (!this.userId) {
-   return;
-    }
-    return Games.find({
-        'players.userId':this.userId
-    }, {
-      $inc: {
-      "players.score": +1
-      }
-  });
-});
-
-
-Meteor.publish('down', function(gameId) {
-    check(gameId, String);
-	if (!this.userId) {
-   return;
-    }
-    return Games.find({
-        'players.userId':this.userId
-    }, {
-      $inc: {
-      "players.score": -1
-          }
-      });
 });

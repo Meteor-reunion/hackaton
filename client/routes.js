@@ -3,11 +3,7 @@ Router.map(function() {
       this.route("home", {
     	  template: "home",
     	  layoutTemplate: "layout",
-        path: '/',
-        waitOn: function() {
-          //Meteor.subscribe('restos')
-          //return  Meteor.subscribe('restos');
-        }
+        path: '/'
     });
 
     this.route('signOut', {
