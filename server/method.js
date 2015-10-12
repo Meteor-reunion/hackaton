@@ -10,10 +10,10 @@ function blankBullets() {
   return bullets
 }
 
-function resetBullets() {
+function resetBullets(luck) {
   var bullets = []
   for (var i = 0; i < 16; i++) {
-    bullets.push(catOrPoop(0.3))
+    bullets.push(catOrPoop(luck))
   }
   return bullets
 }
@@ -45,6 +45,7 @@ Meteor.methods({
     var game = games[0]
     var gameId
     if (game) {
+      // start game
       Games.update({ _id: game._id }, {
         $push: { players: { userId: this.userId, score: 0 } },
         $set: { startedAt: new Date() }
@@ -52,8 +53,9 @@ Meteor.methods({
       gameId = game._id
       Meteor.call('sendTimer', gameId)
     } else {
+      // create game with 1st player
       gameId = Games.insert({
-        bullets: resetBullets(),
+        bullets: resetBullets(0.2),
         players: [ { userId: this.userId,
                      score: 0 } ]
       })
@@ -100,7 +102,7 @@ Meteor.methods({
         }
 
         var setQuery = {}
-        setQuery['bullets.'+position] = -1//catOrPoop(0.5)
+        setQuery['bullets.'+position] = -1
 
         var incQuery = {}
         incQuery['players.'+playerIndex+'.score'] = playerIncrement
@@ -117,8 +119,9 @@ Meteor.methods({
           })
 
           Meteor.setTimeout(function() {
+            // restore all bullets
             Games.update({ _id: gameId }, {
-              $set: { bullets: resetBullets() }
+              $set: { bullets: resetBullets(0.4) }
             })
           }, 300)
         } else {
@@ -137,10 +140,10 @@ Meteor.methods({
   },
 
   restoreBullet: function(gameId, position) {
-    console.log('restoring bullet for game: '+ gameId+ ' ('+position+')')
+    //console.log('restoring bullet for game: '+ gameId+ ' ('+position+')')
     var game = Games.findOne({ _id: gameId })
     var setQuery = {}
-    setQuery['bullets.'+position] = catOrPoop(0.5)
+    setQuery['bullets.'+position] = catOrPoop(0.3)
     Games.update({ _id: gameId }, {
       $set: setQuery
     })
