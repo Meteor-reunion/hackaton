@@ -34,7 +34,7 @@ Accounts.emailTemplates.resetPassword.text = function (user, url) {
 };
 
 Accounts.emailTemplates.enrollAccount.subject = function (user) {
-    return "Un compte a été créé pour vous sur Mapphotos " + user.username;
+    return "Un compte a été créé pour vous sur OopsCat " + user.username;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
    return "Pour commencer à utiliser le service, il suffit de cliquer sur le lien ci-dessous:\n\n"
@@ -42,7 +42,7 @@ Accounts.emailTemplates.enrollAccount.text = function (user, url) {
 };
 
 Accounts.emailTemplates.verifyEmail.subject = function (user) {
-    return "Vérifier votre adresse e-mail sur Mapphotos " + user.username;
+    return "Vérifier votre adresse e-mail sur OopsCat " + user.username;
 };
 Accounts.emailTemplates.verifyEmail.text = function (user, url) {
    return " Pour vérifier votre compte e-mail, cliquez simplement sur le lien ci-dessous:\n\n"

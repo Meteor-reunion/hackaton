@@ -29,15 +29,15 @@ Template.game.helpers({
       //console.log(user)
       return user.profile.name
     } else {
-      return "Utiliseur inconnu"
+      return "Waiting for a player..." //TODO use i18n
     }
   },
 
   rank: function(userId) {
     if (user = Users.findOne({ _id: userId })) {
-      return user.profile.rank
+      return "("+user.profile.rank+")"
     } else {
-      return "?"
+      return ""
     }
   },
 
@@ -47,8 +47,8 @@ Template.game.helpers({
 });
 
 Template.game.events({
-  'click .bullet': function (event) {
-    Meteor.call('sendPosition', Session.get('currentGame'), $(event.target).attr('data-position'))
+  'click .bullet .bullet-image': function (event) {
+    Meteor.call('sendPosition', Session.get('currentGame'), $(event.target).closest('.bullet').attr('data-position'))
   },
 
   'click .replay': function (event) {

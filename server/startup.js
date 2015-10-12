@@ -36,4 +36,10 @@
       _.each(games, function (game) {
         Games.insert(game)
       })
+
+      unfinishedGames = Games.find({ $and: [ { startedAt: { $ne: null } }, { endedAt: null } ] }).fetch()
+      _.each(unfinishedGames, function(game) {
+        console.log('sendTimer to game: '+game._id)
+        Meteor.call('sendTimer', game._id)
+      })
     });

@@ -2,6 +2,14 @@ function userName() {
   return Meteor.user().username || Meteor.user().profile.name;
 }
 
+function blankBullets() {
+  var bullets = []
+  for (var i = 0; i < 16; i++) {
+    bullets.push(-1)
+  }
+  return bullets
+}
+
 function resetBullets() {
   var bullets = []
   for (var i = 0; i < 16; i++) {
@@ -81,7 +89,9 @@ Meteor.methods({
         }
 
         var playerIncrement = 0
-        if (game.bullets[position] == 1) {
+        if (game.bullets[position] < 0) {
+          console.log("Too late, the other player was faster")
+        } else if (game.bullets[position] == 1) {
           playerIncrement = 100
           //console.log('+1')
         } else {
@@ -90,7 +100,7 @@ Meteor.methods({
         }
 
         var setQuery = {}
-        setQuery['bullets.'+position] = catOrPoop(0.5)
+        setQuery['bullets.'+position] = -1//catOrPoop(0.5)
 
         var incQuery = {}
         incQuery['players.'+playerIndex+'.score'] = playerIncrement
@@ -103,8 +113,18 @@ Meteor.methods({
         var editedGame = Games.findOne({ _id: gameId })
         if (editedGame.bullets.indexOf(1) < 0) {
           Games.update({ _id: gameId }, {
-            $set: { bullets: resetBullets() }
+            $set: { bullets: blankBullets() }
           })
+
+          Meteor.setTimeout(function() {
+            Games.update({ _id: gameId }, {
+              $set: { bullets: resetBullets() }
+            })
+          }, 300)
+        } else {
+          Meteor.setTimeout(function() {
+            Meteor.call('restoreBullet', gameId, position)
+          }, 600)
         }
       } else {
         console.log('Player '+this.userId+' is not in game '+gameId)
@@ -114,6 +134,16 @@ Meteor.methods({
     } else {
       console.log('La partie est terminée, les envois ne sont plus pris en charge')
     }
+  },
+
+  restoreBullet: function(gameId, position) {
+    console.log('restoring bullet for game: '+ gameId+ ' ('+position+')')
+    var game = Games.findOne({ _id: gameId })
+    var setQuery = {}
+    setQuery['bullets.'+position] = catOrPoop(0.5)
+    Games.update({ _id: gameId }, {
+      $set: setQuery
+    })
   },
 
   sendTimer: function(gameId) {
@@ -132,21 +162,25 @@ Meteor.methods({
   },
 
   endGame: function(gameId) {
-    var game = Games.findOne({ _id: gameId })
     Games.update({ _id: gameId }, {
       $set: { endedAt: new Date() }
     })
 
-    var bestPlayerId
-    var bestPlayerScore = -1000000
-    game.players.forEach(function(player) {
-      if (player.score > bestPlayerScore) {
-        bestPlayerId = player.userId
-        bestPlayerScore = player.score
-      }
-    })
+    var game = Games.findOne({ _id: gameId })
+    if (game) {
+      var bestPlayerId
+      var bestPlayerScore = -1000000
+      game.players.forEach(function(player) {
+        if (player.score > bestPlayerScore) {
+          bestPlayerId = player.userId
+          bestPlayerScore = player.score
+        }
+      })
 
-    Meteor.call('updatePlayerSubRank', bestPlayerId)
+      if (bestPlayerId) {
+        Meteor.call('updatePlayerSubRank', bestPlayerId)
+      }
+    }
   },
 
   updatePlayerSubRank: function(playerId) {
@@ -154,11 +188,8 @@ Meteor.methods({
       $inc: { 'profile.subRank': 1000 }
     })
 
-    console.log(playerId)
     updatedUser = Users.findOne({ _id: playerId })
-    console.log('updatedUser')
-    console.log(updatedUser)
-    var maxPerSubRank = 1900 // 10000
+    var maxPerSubRank = 9000
     if (updatedUser.profile.subRank >= maxPerSubRank) {
       Users.update({ _id: playerId }, {
         $inc: { 'profile.subRank': -maxPerSubRank, 'profile.rank': 1 }
