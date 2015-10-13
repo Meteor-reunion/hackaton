@@ -1,3 +1,28 @@
+
+function getMediaUrl(sound) {
+  if (device.platform.toLowerCase() === "android") {
+    return cordova.file.applicationDirectory.replace('file://', '') + 'www/application/' + sound.substr(1);
+  }
+  else {
+    return cordova.file.applicationDirectory.replace('file://', '') + sound.substr(1);
+  }
+}
+
+function playSound(sound) {
+  return new Media(
+    getMediaUrl(sound),
+    function (success) {
+      // success
+      console.log("music success")
+    },
+    function (err) {
+      // error
+        console.log(err)
+    }
+  );
+}
+
+
 Template.home.events({
   'click .joinGame': function (event) {
     Meteor.call('joinGame', function(err, game) {
@@ -76,20 +101,32 @@ Template.game.events({
 });
 
 Template.game.onRendered(function() {
-  kickSound.set(new Howl({
-    urls: ['/sounds/kicks.mp3'],
-    sprite: {
-      1: [100, 700],
-      2: [1400, 400],
-      3: [3500, 550],
-      4: [5600, 700]
-    }
-  }))
-  poopSound.set(new Howl({urls: ['/sounds/poop.mp3']}))
+  if(Meteor.isCordova){
+  var kicks=playSound('/sounds/kicks.mp3')
+  kickSound.set(kicks)
+  var poop=playSound('/sounds/poop.mp3')
+  poopSound.set(poop)
+  }else{
+    kickSound.set(new Howl({
+      urls: ['/sounds/kicks.mp3'],
+      sprite: {
+        1: [100, 700],
+        2: [1400, 400],
+        3: [3500, 550],
+        4: [5600, 700]
+      }
+    }))
+    poopSound.set(new Howl({urls: ['/sounds/poop.mp3']}))
+  }
 
   this.autorun(function () {
     if (Session.get('gameInProgress') == true) {
+      if(Meteor.isCordova){
+      playSound('/sounds/start.mp3').play()
+      }else{
       new Howl({urls: ['/sounds/start.mp3']}).play()
+      }
+
     } else {
       //console.log("la partie n'a pas encore commencé")
     }

@@ -23,12 +23,12 @@ App.launchScreens({
 });
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
-App.setPreference('StatusBarBackgroundColor', '#000000');
+App.setPreference('StatusBarBackgroundColor', '#ffffff');
 
 App.accessRule('*');
 
 App.configurePlugin('com.phonegap.plugins.facebookconnect', {
-  APP_ID: '480078522174126',
-  API_KEY: 'ecd8c57f1608f4c39a2de51d4834cd9a',
+  APP_ID: '150211115006932',
+  API_KEY: 'c94435498f5769ab15c2afb428da2bb0',
   APP_NAME:'oopscat'
 });

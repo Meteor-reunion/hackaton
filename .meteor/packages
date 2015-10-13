@@ -39,6 +39,6 @@ useraccounts:iron-routing
 meteoric:camera
 meteoric:ionic-sass
 meteoric:autoform-ionic
-#accounts-facebook
+accounts-facebook
 utilities:avatar
 ovcharik:howler
