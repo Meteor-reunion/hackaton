@@ -21,19 +21,25 @@
         }
       })
 
-      var user = Users.findOne({ username: "john" })
-      var games = [
-        {
-          bullets: [1, 1, 1, 0,
-                    1, 0, 1, 1,
-                    1, 1, 0, 0,
-                    1, 1, 0, 1],
-          players: [ { userId: user._id,
-                       score: 0 } ]
-        }
-      ]
+      // var user = Users.findOne({ username: "john" })
+      // var games = [
+      //   {
+      //     bullets: [1, 1, 1, 0,
+      //               1, 0, 1, 1,
+      //               1, 1, 0, 0,
+      //               1, 1, 0, 1],
+      //     players: [ { userId: user._id,
+      //                  score: 0 } ]
+      //   }
+      // ]
+      //
+      // _.each(games, function (game) {
+      //   Games.insert(game)
+      // })
 
-      _.each(games, function (game) {
-        Games.insert(game)
+      unfinishedGames = Games.find({ $and: [ { startedAt: { $ne: null } }, { endedAt: null } ] }).fetch()
+      _.each(unfinishedGames, function(game) {
+        console.log('sendTimer to game: '+game._id)
+        Meteor.call('sendTimer', game._id)
       })
     });

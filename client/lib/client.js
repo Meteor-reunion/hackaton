@@ -2,8 +2,8 @@
   return [false];
 });*/
 
-catSound = new Blaze.ReactiveVar('cat')
-poopSound = new Blaze.ReactiveVar('poop')
+kickSound = new Blaze.ReactiveVar(null)
+poopSound = new Blaze.ReactiveVar(null)
 
 Meteor.startup(function () {
 

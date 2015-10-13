@@ -40,7 +40,7 @@ Accounts.emailTemplates.enrollAccount.text = function (user, url) {
 };
 
 Accounts.emailTemplates.verifyEmail.subject = function (user) {
-    return "Vérifier votre adresse e-mail sur OOpsCat" + user.username;
+    return "Vérifier votre adresse e-mail sur OopsCat " + user.username;
 };
 Accounts.emailTemplates.verifyEmail.text = function (user, url) {
    return " Pour vérifier votre compte e-mail, cliquez simplement sur le lien ci-dessous:\n\n"
