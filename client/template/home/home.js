@@ -126,7 +126,6 @@ Template.game.onRendered(function() {
       }else{
       new Howl({urls: ['/sounds/start.mp3']}).play()
       }
-
     } else {
       //console.log("la partie n'a pas encore commencé")
     }
