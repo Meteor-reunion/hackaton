@@ -29,6 +29,7 @@
 </template>
 
 <template name="game">
+  {{#if assetsLoaded}}{{else}}{{/if}}
   {{#with game}}
     <div class="heading">
       <div class="player player1">

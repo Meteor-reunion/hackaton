@@ -53,6 +53,9 @@ Handlebars.registerHelper('key_value', function(context, options) {
   return result;
 });
 
+if (Meteor.isCordova) {
+MeteorSounds.preloadAllAssets();
+}
 });
 
 

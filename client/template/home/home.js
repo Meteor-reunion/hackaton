@@ -1,28 +1,3 @@
-
-function getMediaUrl(sound) {
-  if (device.platform.toLowerCase() === "android") {
-    return cordova.file.applicationDirectory.replace('file://', '') + 'www/application/' + sound.substr(1);
-  }
-  else {
-    return cordova.file.applicationDirectory.replace('file://', '') + sound.substr(1);
-  }
-}
-
-function playSound(sound) {
-  return new Media(
-    getMediaUrl(sound),
-    function (success) {
-      // success
-      console.log("music success")
-    },
-    function (err) {
-      // error
-        console.log(err)
-    }
-  );
-}
-
-
 Template.home.events({
   'click .joinGame': function (event) {
     Meteor.call('joinGame', function(err, game) {
@@ -43,6 +18,15 @@ Template.home.helpers({
 });
 
 Template.game.helpers({
+  assetsLoaded: function () {
+  if (Meteor.isCordova)
+    return MeteorSounds.assetsLoaded.get();
+  else
+    return '';
+},
+isCordova: function () {
+  return Meteor.isCordova;
+},
   game: function () {
     return Games.findOne({});
   },
@@ -56,7 +40,7 @@ Template.game.helpers({
     if (user = Users.findOne({ _id: userId })) {
       return user.profile.name
     } else {
-      return "Waiting for a player..." //TODO use i18n
+      return TAPi18n.__('Waiting for a player');
     }
   },
 
@@ -96,17 +80,16 @@ Template.game.events({
   },
 
   'click .bullet.value0': function(event) {
+    if(Meteor.isCordova){
+      MeteorSounds.play('poop')
+    }else{
     poopSound.get() && poopSound.get().play()
+    }
   }
 });
 
 Template.game.onRendered(function() {
-  if(Meteor.isCordova){
-  var kicks=playSound('/sounds/kicks.mp3')
-  kickSound.set(kicks)
-  var poop=playSound('/sounds/poop.mp3')
-  poopSound.set(poop)
-  }else{
+  if(!Meteor.isCordova){
     kickSound.set(new Howl({
       urls: ['/sounds/kicks.mp3'],
       sprite: {
@@ -122,7 +105,7 @@ Template.game.onRendered(function() {
   this.autorun(function () {
     if (Session.get('gameInProgress') == true) {
       if(Meteor.isCordova){
-      playSound('/sounds/start.mp3').play()
+      MeteorSounds.play('start')
       }else{
       new Howl({urls: ['/sounds/start.mp3']}).play()
       }
